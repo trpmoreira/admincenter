@@ -19,6 +19,7 @@ import { Input } from "../ui/input";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(3).max(255),
@@ -41,7 +42,7 @@ export const StoreModal = () => {
       setLoading(true);
       const response = await axios.post("/api/stores", values);
 
-      toast.success("Store created successfully");
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -69,7 +70,7 @@ export const StoreModal = () => {
                     <FormControl>
                       <Input
                         disabled={loading}
-                        placeholder="e-commerce"
+                        placeholder="E-Commerce"
                         {...field}
                       />
                     </FormControl>
